@@ -27,21 +27,21 @@ app.layout = html.Div(children=[
             style={'textAlign': 'center'}),
 
     html.Div(children=[
-        html.Label('Select region:', style={'font-size': '20px', 'font-weight': 'bold'}),
-        dcc.RadioItems(regions, my_input, id='category')
-    ], style={'padding': 10, 'flex': 1, 'text-align': 'center'}),
+            html.Label('Select region:', style={'font-size': '20px', 'font-weight': 'bold'}),
+            dcc.RadioItems(regions, my_input, id='category')
+            ], style={'padding': 10, 'flex': 1, 'text-align': 'center'}),
 
     dcc.Graph(
         id='indicator-graphic'
     )
 ])
 
-
 @app.callback(
     Output(component_id='indicator-graphic', component_property='figure'),
     Input(component_id='category', component_property='value')
 )
 def update_graph(region):
+
     if region == 'All':
         mask = [True] * len(df.index)
     else:
@@ -56,12 +56,11 @@ def update_graph(region):
                                           )
                        )
     fig.update_layout(
-        font=dict(family='Roboto',
-                  size=16),
+        font = dict(family = 'Roboto',
+                    size = 16),
         font_color='#000000',
         title_font_color='#000000')
     return fig
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
